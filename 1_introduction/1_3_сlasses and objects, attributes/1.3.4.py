@@ -6,4 +6,4 @@ class Goods:
 
 
 setattr(Goods, "price", 2048), setattr(Goods, "inflation", 100)
-print(Goods.__doc____)
+print(Goods.__dict__)
