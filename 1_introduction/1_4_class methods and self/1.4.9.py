@@ -1,8 +1,11 @@
 import sys as s
 
 # программу не менять, только добавить два метода
-lst_in = list(map(str.strip, s.stdin.readlines()))  # считывание списка строк из входного потока
+import sys as s
 
+# программу не менять, только добавить два метода
+lst_in = list(map(str.strip, s.stdin.readlines()))  # считывание списка строк из входного потока
+lst_in_1 = [i.split() for i in lst_in]
 
 class DataBase:
     lst_data = []
@@ -21,7 +24,9 @@ class DataBase:
         if b > len(self.lst_data):
             return self.lst_data[a:]
         else:
-            return self.lst_data[a:b]
+            return self.lst_data[a:b + 1]
+
 
 db = DataBase()
-db.insert(lst_in)
+db.insert(lst_in_1)
+print(db.select(1, 3))
