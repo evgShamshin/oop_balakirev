@@ -19,7 +19,7 @@ class MotherBoard:
     def __init__(self, name, cpu, total_mem_slots, mem_slots):
         # name - наименование; cpu - ссылка на объект класса CPU; total_mem_slots = 4 - общее число слотов памяти (атрибут прописывается с этим значением и не меняется); mem_slots - список из объектов класса Memory (максимум total_mem_slots = 4 штук по максимальному числу слотов памяти)
         self.name = name
-        self.cpu = CPU
+        self.cpu = CPU()
         self.total_mem_slots = total_mem_slots
         self.mem_slots = Memory.__dict__.items()
 
