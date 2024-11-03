@@ -16,20 +16,29 @@ class Memory:
 
 class MotherBoard:
     # MotherBoard - класс для описания материнских плат
-    def __init__(self, name, cpu, total_mem_slots, mem_slots):
-        # name - наименование; cpu - ссылка на объект класса CPU; total_mem_slots = 4 - общее число слотов памяти (атрибут прописывается с этим значением и не меняется); mem_slots - список из объектов класса Memory (максимум total_mem_slots = 4 штук по максимальному числу слотов памяти)
+    def __init__(self, name, cpu, *mem_slots):
+        # name - наименование;
+        # cpu - ссылка на объект класса CPU;
+        # total_mem_slots = 4 - общее число слотов памяти (атрибут прописывается с этим значением и не меняется);
+        # mem_slots - список из объектов класса Memory (максимум total_mem_slots = 4 штук по максимальному числу слотов памяти)
         self.name = name
-        self.cpu = CPU
-        self.total_mem_slots = total_mem_slots
-        self.mem_slots = Memory.__dict__.items()
-
+        self.cpu = cpu
+        self.total_mem_slots = 4
+        self.mem_slots = mem_slots[:self.total_mem_slots]
 
     def get_config(self):
-        config = [f'Материнская плата: {self.name}',
-                  f'Центральный процессор: {CPU.__dict__['name']}, {CPU.__dict__['fr']} ',
-                  f'Слотов памяти: {Memory.__dict__["total_mem_slots"]}',
-                  'Память: <наименование_1> - <объем_1>; <наименование_2> - <объем_2>; ...; <наименование_N> - <объем_N>']
+        config = [f"Материнская плата: {self.name}",
+                  f"Центральный процессор: {self.cpu.name}, {self.cpu.fr}",
+                  f"Слотов памяти: {self.total_mem_slots}",
+                  f"Память: {'; '.join([f'{i.name} - {i.volume}' for i in self.mem_slots])}"]
         return config
 
 
-mb = MotherBoard()
+# Пример создания объектов и получения конфигурации
+cpu = CPU("Intel Core i7", "3.6GHz")
+mem1 = Memory("Corsair", "16GB")
+mem2 = Memory("Kingston", "8GB")
+mb = MotherBoard("ASUS ROG", cpu, mem1, mem2)
+
+# Получение конфигурации (ничего не отображаем на экране, как указано)
+config = mb.get_config()
