@@ -3,3 +3,4 @@ class Cart:
         self.goods = goods
 
 
+    pass
