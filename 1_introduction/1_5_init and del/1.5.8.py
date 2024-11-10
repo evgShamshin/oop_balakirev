@@ -1,12 +1,10 @@
 class Cart:
     def __init__(self):
-        # goods - список объектов для покупки (объекты классов Table, TV, Notebook и Cup). Изначально этот список должен быть пустым
         self.goods = []
 
-    def add(self, gd, price=0):
+    def add(self, gd):
         # add(self, gd) - добавление в корзину товара, представленного объектом gd
         self.goods.append(gd)
-        self.price = price
 
     def remove(self, indx):
         # remove(self, indx) - удаление из корзины товара по индексу indx
@@ -14,21 +12,44 @@ class Cart:
 
     def get_list(self):
         # get_list(self) - получение из корзины товаров в виде списка из строк
-        print(self.goods)
+        return [f'{gd.name}: {gd.price}' for gd in self.goods]
 
-Table = Cart()
-Table.add("Столы")
 
-TV = Cart()
-TV.add("TV")
+class Table:
+    def __init__(self, name="", price=""):
+        self.name = name
+        self.price = price
 
-Notebook = Cart()
-Notebook.add("Ноутбуки")
 
-Cup = Cart()
-Cup.add("Кружки")
+class TV:
+    def __init__(self, name="", price=""):
+        self.name = name
+        self.price = price
 
-Table.get_list()
-TV.get_list()
-Cup.get_list()
 
+class Notebook:
+    def __init__(self, name="", price=""):
+        self.name = name
+        self.price = price
+
+
+class Cup:
+    def __init__(self, name="", price=""):
+        self.name = name
+        self.price = price
+
+
+# Объявите в программе следующие классы для описания товаров:
+table = Table("Стол", 2500)
+tv1 = Cup("ТВ1", 25000)
+tv2 = Cup("ТВ2", 27000)
+notebook1 = Notebook("Ноутбук1", 35000)
+notebook2 = Notebook("Ноутбук2", 37000)
+cup = Cup("Кружка", 250)
+
+# Создайте в программе объект cart класса Cart.
+# Добавьте в него два телевизора (TV), один стол (Table), два ноутбука (Notebook) и одну кружку (Cup).
+# Названия и цены придумайте сами.
+cart = Cart()
+cart.add(tv1), cart.add(tv2), cart.add(table), cart.add(notebook1), cart.add(notebook2), cart.add(cup)
+print(cart.get_list())
