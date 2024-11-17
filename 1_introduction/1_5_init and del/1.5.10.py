@@ -43,16 +43,16 @@ class GamePole:
                 self.pole[n1][n2] = Cell(around_mines=self.get_around_mines(i=n1, j=n2), mine=mine)
 
     def get_around_mines(self, i, j):
-        if self.pole[i][j] == "*":
-            n = 0
-        else:
-            n = -1
+        n = 0
         for k in range(-1, 2):
             for l in range(-1, 2):
+                print(i, j, k, l)
                 ii, jj = k + i, l + j
+                print(ii, jj)
+                print()
                 if ii < 0 or jj < 0 or ii >= self.N or jj >= self.N:
                     continue
-                if self.pole[ii][jj] == "#":
+                if self.pole[ii][jj] == "*":
                     n += 1
         return n
 
@@ -67,8 +67,10 @@ class GamePole:
         for i in res:
             print()
             for j in i:
-                if j: print("*", end=" ")
-                else: print("#", end=" ")
+                if j:
+                    print("*", end=" ")
+                else:
+                    print("#", end=" ")
         print()
         res_temp = [([j.__dict__["around_mines"] for j in i]) for i in self.pole]
         for i, row in enumerate(range(len(res_temp))):
@@ -77,5 +79,8 @@ class GamePole:
                 print(j, end=" ")
 
 
-pole_game = GamePole(4, 3)
+N = 5
+M = 3
+
+pole_game = GamePole(N, M)
 pole_game.show()
