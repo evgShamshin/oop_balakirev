@@ -46,11 +46,14 @@ class GamePole:
         n = 0
         for k in range(-1, 2):
             for l in range(-1, 2):
-                print(i, j, k, l)
                 ii, jj = k + i, l + j
+                print(i, j, k, l)
                 print(ii, jj)
-                print()
+                print("Внутри внизу")
                 if ii < 0 or jj < 0 or ii >= self.N or jj >= self.N:
+                    print(i, j, k, l)
+                    print(ii, jj)
+                    print()
                     continue
                 if self.pole[ii][jj] == "*":
                     n += 1
