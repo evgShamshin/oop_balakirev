@@ -1,5 +1,16 @@
 class Server:
-    def send_data(data):
+    buffer = []
+    counter = 0
+
+    def __new__(cls, *args, **kwargs):
+        cls.counter = + 1
+        return cls.counter
+
+    def __init__(self, *args, **kwargs):
+        self.counter =+ 1
+        self.ip = self.counter
+
+    def send_data(self, data):
         pass
 
     def get_data(self):
@@ -11,6 +22,7 @@ class Server:
 
 class Router:
     buffer = {}
+
     def link(self, server):
         setattr(self, "server", server)
 
@@ -23,12 +35,16 @@ class Router:
         self.buffer = {}
         print(self.buffer)
 
+
 class Data:
     def __init__(self, data, ip):
         self.data = data
         self.ip = ip
 
 
-router = Router()
-sv_from = Server()
-router.send_data("data", "ip")
+# router = Router()
+sv_from1 = Server()
+# router.send_data("data", "ip")
+print(sv_from1)
+# sv_from2 = Server()
+# print(sv_from2)
