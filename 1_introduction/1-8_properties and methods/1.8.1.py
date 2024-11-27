@@ -1,19 +1,18 @@
 class Server:
-    buffer = []
     count = 0
     router_obj = None
 
     def __init__(self):
         Server.count += 1
         self.ip = Server.count
+        self.buffer = list()
 
     def send_data(self, data):
-        self.router_obj.buffer.setdefault(self, data)
+        self.router_obj.buffer.setdefault(data.ip, []).append(data)
 
     def get_data(self):
         setattr(self, "zalupa", self.buffer)
         self.buffer = []
-        print(self.zalupa)
         return self.zalupa
 
 
@@ -31,8 +30,7 @@ class Router:
         delattr(self, server)
 
     def send_data(self):
-        for server in self.buffer:
-            print(server)
+        print(self.buffer)
         self.buffer.clear()
 
 
@@ -58,6 +56,8 @@ sv_to.send_data(Data("Hi", sv_from.get_ip()))
 router.send_data()
 msg_lst_from = sv_from.get_data()
 msg_lst_to = sv_to.get_data()
+print(msg_lst_from)
+print(msg_lst_to)
 
 
 """
