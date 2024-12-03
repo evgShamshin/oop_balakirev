@@ -1,23 +1,23 @@
-class Line:
-    def __init__(self, x1, y1, x2, y2):
-        self.__x1 = x1
-        self.__y1 = y1
-        self.__x2 = x2
-        self.__y2 = y2
+class Book:
+    def __init__(self, author, title, price):
+        self.__title = title
+        self.__author = author
+        self.__price = price
 
-    def set_coords(self, x1, y1, x2, y2):
-        self.__x1 = x1
-        self.__y1 = y1
-        self.__x2 = x2
-        self.__y2 = y2
+    def set_title(self, title):
+        self.__title = title
 
-    def get_coords(self):
-        return self.__x1, self.__y1, self.__x2, self.__y2
+    def set_author(self, author):
+        self.__author = author
 
-    def draw(self):
-        print(*[self.__x1, self.__y1, self.__x2, self.__y2], sep=" ")
+    def set_price(self, price):
+        self.__price = price
 
+    def get_title(self):
+        return self.__title
 
-line1 = Line(1, 2, 3, 4)
-print(line1.get_coords())
-line1.draw()
+    def get_author(self):
+        return self.__author
+
+    def get_price(self):
+        return self.__price
