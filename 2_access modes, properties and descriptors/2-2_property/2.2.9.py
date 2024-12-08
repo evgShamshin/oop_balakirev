@@ -18,6 +18,7 @@ class PhoneBook:
         return self.phones
 
 
+"""
 p = PhoneBook()
 p.add_phone(PhoneNumber(12345678901, "Сергей Балакирев"))
 p.add_phone(PhoneNumber(21345678901, "Панда"))
@@ -25,3 +26,4 @@ phones = p.get_phone_list()
 print(p.__dict__)
 p.remove_phone(0)
 print(p.__dict__)
+"""
