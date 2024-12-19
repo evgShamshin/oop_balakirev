@@ -7,14 +7,11 @@ class Dimensions:
         self.__b = b
         self.__c = c
 
-    """def __setattr__(self, key, value):
+    def __setattr__(self, key, value):
         if key in ('MIN_DIMENSION', 'MAX_DIMENSION'):
             raise AttributeError("Менять атрибуты MIN_DIMENSION и MAX_DIMENSION запрещено.")
-        if key in ('a', 'b', 'c') and self.MIN_DIMENSION <= value <= self.MAX_DIMENSION:
-            self.__dict__[key] = value
-        if key in ('a', 'b', 'c') and self.MIN_DIMENSION > value > self.MAX_DIMENSION:
-            self.__dict__[key] = __dict__[key]"""
-
+        if type(key) in (int, float) and self.MIN_DIMENSION <= value <= self.MAX_DIMENSION:
+            object.__setattr__(self, key, value)
 
     @property
     def a(self):
@@ -47,4 +44,5 @@ d.a = 8
 d.b = 15
 print(d.__dict__)
 a, b, c = d.a, d.b, d.c  # a=10.5, b=15, c=30
-# d.MAX_DIMENSION = 10  # исключение AttributeError
+print(a, b, c)
+d.MAX_DIMENSION = 10  # исключение AttributeError
