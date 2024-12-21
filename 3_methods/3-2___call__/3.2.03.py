@@ -6,6 +6,7 @@ class ImageFileAcceptor:
         return any([ext in filename.split(".") for ext in self.__extensions])
 
 
+
 fs = ["boat.jpg", "web.png", "text.txt", "python.doc", "ava.8.jpg", "forest.jpeg", "eq_1.png", "eq_2.png", "my.html", "data.shtml"]
 acceptor = ImageFileAcceptor(("jpg", "png"))
 res = filter(acceptor, fs)
