@@ -21,22 +21,16 @@ class Server:
 
 
 class Router:
-    list_server = []
     buffer = {}
 
     def link(self, server):
-        self.list_server.append(server)
         server.router_obj = self
 
     def unlink(self, server):
-        self.list_server.remove(server)
-        server.router_obj = None
+        delattr(self, server)
 
     def send_data(self):
-        for i in self.buffer:
-            for j in self.list_server:
-                if i == j.ip:
-                    j.buffer = self.buffer[i]
+        print(self.buffer)
         self.buffer.clear()
 
 
@@ -51,8 +45,8 @@ router = Router()
 sv_from = Server()
 sv_from2 = Server()
 router.link(sv_from)
-router.link(sv_from2)
-router.link(Server())
+router.link(sv_from2.link(Server()))
+router
 router.link(Server())
 sv_to = Server()
 router.link(sv_to)
