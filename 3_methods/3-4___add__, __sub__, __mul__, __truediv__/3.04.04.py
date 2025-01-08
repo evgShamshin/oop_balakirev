@@ -2,43 +2,28 @@ class NewList:
     def __init__(self, value=[]):
         self.value = value
 
+    @staticmethod
+    def list_sub_list(a, b):
+        b = [(x, type(x)) for x in b]
+        return [x for x in a if (x, type(x)) not in b or b.remove((x, type(x)))]
+
     def __sub__(self, other):
-        res = None
+        slf_val = self if isinstance(self, list) else self.value
+        oth_val = other if isinstance(other, list) else other.value
 
-        if isinstance(other, NewList) and isinstance(self, NewList):
-            res = [[slf, type(slf)] for slf in self.value.copy()]
-            for slf in self.value:
-                for oth in other.value:
-                    if (oth, type(oth)) == (slf, type(slf)):
-                        res.remove([slf, type(slf)])
-
-        if not isinstance(other, NewList) and isinstance(self, NewList):
-            res = [[slf, type(slf)] for slf in self.value.copy()]
-            for slf in self.value:
-                for oth in other:
-                    if (oth, type(oth)) == (slf, type(slf)):
-                        res.remove([slf, type(slf)])
+        res = [[slf, type(slf)] for slf in slf_val]
+        for slf in slf_val:
+            for oth in oth_val:
+                if (oth, type(oth)) == (slf, type(slf)):
+                    res.remove([slf, type(slf)])
 
         return NewList([r[0] for r in res])
 
     def __rsub__(self, other):
-        res = None
+        slf_val = self if isinstance(self, list) else self.value
+        oth_val = other if isinstance(other, list) else other.value
 
-        if not isinstance(other, NewList) and isinstance(self, NewList):
-            res = [[slf, type(slf)] for slf in other.copy()]
-            for slf in self.value:
-                for oth in other:
-                    if (oth, type(oth)) == (slf, type(slf)):
-                        res.remove([slf, type(slf)])
-
-        if not isinstance(other, NewList) and not isinstance(self, NewList):
-            res = [[slf, type(slf)] for slf in other.copy()]
-            for slf in self:
-                for oth in other:
-                    if (oth, type(oth)) == (slf, type(slf)):
-                        res.remove([slf, type(slf)])
-
-        return NewList(value=[r[0] for r in res])
+        return NewList(self.list_sub_list(oth_val, slf_val))
 
     def get_list(self):
         return self.value
@@ -58,7 +43,6 @@ print(f"res_3 - {res_3.__dict__}")
 a = NewList([2, 3])
 res_4 = [1, 2, 2, 3] - a  # NewList: [1, 2]
 print(f"res_4 - {res_4.__dict__}")
-
 
 # TEST-TASK___________________________________
 lst = NewList()
