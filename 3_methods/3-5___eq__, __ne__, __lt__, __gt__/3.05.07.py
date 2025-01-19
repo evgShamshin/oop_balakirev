@@ -4,20 +4,24 @@ class FileAcceptor:
 
     @staticmethod
     def check_contain(data, ext):
-        for e in ext:
-            if e in data:
-                return True
+        if "." in data:
+            data_in = data.split(".")
+
+            for e in ext:
+                if e == data_in[-1]:
+                    return True
         return False
 
-    def __call__(self, *args):
-        return [a.split() for a in args[0] if self.check_contain(a, self.ext)]
+    def __call__(self, args):
+        if type(args) in (list, tuple):
+            return [a.split() for a in args[0] if self.check_contain(a, self.ext)]
+        if type(args) == str:
+            return self.check_contain(args, self.ext)
 
     def __add__(self, other):
-        res = list(self.ext)
-        for oth in other.ext:
-            if oth not in res:
-                res.append(oth)
-        return res
+        other_data = other.ext if isinstance(other, FileAcceptor) else [other]
+        self_data = self.ext if isinstance(self, FileAcceptor) else [self]
+        return FileAcceptor(*other_data + self_data)
 
 
 filenames_list = ["boat.jpg", "ans.web.png", "text.txt", "www.python.doc", "my.ava.jpg", "forest.jpeg", "eq_1.png", "eq_2.xls", "eq_3,png", "text1.sxls", "doc", "doc.docx", "doc."]

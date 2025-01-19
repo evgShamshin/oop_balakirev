@@ -1,6 +1,14 @@
 import sys
 
 
+def string_to_list_txt(string):
+    name = string.split(': ')[0]
+    weight_price = string.split(': ')[1]
+    weight = float(weight_price.split()[0])
+    price = float(weight_price.split()[1])
+    return [name, weight, price]
+
+
 class ShopItem:
     def __init__(self, name, weight, price):
         if type(name) == str:
@@ -18,8 +26,7 @@ class ShopItem:
 
 
 lst_in = list(map(str.strip, sys.stdin.readlines()))
-lst_out = [l.split(": ") for l in lst_in]
-for n, l in enumerate(lst_out):
-    lst_out[n][1] = l[1].split()
+lst_out = [ShopItem(*string_to_list_txt(l)) for l in lst_in]
+shop_item = {1:2}
 
-print(lst_out)
+print(shop_item)
