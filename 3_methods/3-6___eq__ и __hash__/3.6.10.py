@@ -3,11 +3,16 @@ from math import sqrt
 
 class Triangle:
     def __init__(self, a, b, c):
-        if a >= b + c or b >= a + c or c >= a + b:
+        if self._check_value(a, b, c):
+            self.__a = a
+            self.__b = b
+            self.__c = c
+
+    def _check_value(self, a, b, c):
+        if a < b + c and b < a + c and c < a + b:
+            return True
+        else:
             raise ValueError("с указанными длинами нельзя образовать треугольник")
-        self.__a = a
-        self.__b = b
-        self.__c = c
 
     def __setattr__(self, key, value):
         if type(value) in [int, float] and value > 0:
@@ -19,12 +24,12 @@ class Triangle:
         return int(self.__a + self.__b + self.__c)
 
     def __call__(self):
-        p = len(self) / 2
+        p = (self.__a + self.__b + self.__c) / 2
         a = self.__a
         b = self.__b
         c = self.__c
 
-        return float(sqrt(p * (p - a) * (p - b) * (p - c)))
+        return sqrt(p * (p - a) * (p - b) * (p - c))
 
     @property
     def a(self):
@@ -32,7 +37,8 @@ class Triangle:
 
     @a.setter
     def a(self, value):
-        self.__a = value
+        if self._check_value(value, self.__b, self.__c):
+            self.__a = value
 
     @property
     def b(self):
@@ -40,7 +46,8 @@ class Triangle:
 
     @b.setter
     def b(self, value):
-        self.__b = value
+        if self._check_value(self.__a, value, self.__c):
+            self.__b = value
 
     @property
     def c(self):
@@ -48,8 +55,8 @@ class Triangle:
 
     @c.setter
     def c(self, value):
-        self.__c = value
-
+        if self._check_value(self.__a, self.__b, value):
+            self.__c = value
 
 
 tr = Triangle(5, 4, 3)
@@ -75,8 +82,8 @@ assert 5.9 < tr() < 6.1, "метод __call__ вернул не верное з�
 
 tr = Triangle(3.4, 4, 5)
 assert len(tr) == 12, "функция len вернула не верное значение для треугольника со сторонами (3.4, 4, 5)"
-print(tr())
-# assert 6.7 < tr() < 6.8, "метод __call__ вернул не верное значение для треугольника со сторонами (3.4, 4, 5)"
+
+assert 6.7 < tr() < 6.8, "метод __call__ вернул не верное значение для треугольника со сторонами (3.4, 4, 5)"
 
 try:
     tr.a = 1
