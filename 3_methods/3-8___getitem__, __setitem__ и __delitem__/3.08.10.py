@@ -4,16 +4,40 @@ class Cell:
 
 
 class SparseTable:
-    def __getitem__(self):
+    def __init__(self):
         self.rows = 0
         self.cols = 0
         self.values = {}
 
+    def update_values(self):
+        self.rows = max(self.values, key=lambda x: x[0])[0] + 1
+        self.cols = max(self.values, key=lambda x: x[1])[1] + 1
+
     def add_data(self, row, col, data):
         self.values[(row, col)] = data
+        self.rows += row
+        self.cols += col
 
     def remove_data(self, row, col):
-        del self.values[(row, col)]
+        if (row, col) in self.values:
+            del self.values[(row, col)]
+            self.update_values()
+        else:
+            raise IndexError('ячейка с указанными индексами не существует')
+
+    def __getitem__(self, key):
+        if key in self.values:
+            return self.values[key]
+        else:
+            raise ValueError('данные по указанным индексам отсутствуют')
+
+    def __setitem__(self, key, value):
+        if key in self.values:
+            self.values[key] = value
+            self.update_values()
+        else:
+            self.values[key] = value
+            self.update_values()
 
 
 st = SparseTable()
@@ -29,7 +53,9 @@ else:
     assert False, "не сгенерировалось исключение ValueError"
 
 st[3, 2] = 100
+print(st[3, 2])
 assert st[3, 2] == 100, "неверно отработал оператор присваивания нового значения в ячейку таблицы"
+print(st.rows)
 assert st.rows == 4 and st.cols == 6, "неверные значения атрибутов rows и cols"
 
 st[4, 7] = 132
