@@ -1,15 +1,8 @@
 class Matrix:
-    def __init__(self, *args):
-        if len(args) == 3:
-            self.rows, self.cols = args[0], args[1]
-            if type(args[2]) in (int, float, complex):
-                self.fill_value = args[2]
-            else:
-                raise TypeError('аргументы rows, cols - целые числа;'
-                                'fill_value - произвольное число')
-        if len(args) == 1:
-            if self.__validate_matrix(args[0]):
-                self.list2d = args[0]
+    @staticmethod
+    def __raise_error_type():
+        raise TypeError('аргументы rows, cols - целые числа;'
+                        'fill_value - произвольное число')
 
     @staticmethod
     def __raise_error_index():
@@ -32,11 +25,34 @@ class Matrix:
             self.__raise_error_index()
         return True
 
+    def __init__(self, *args):
+        if len(args) == 3:
+            self.rows, self.cols = args[0], args[1]
+            if type(args[2]) in (int, float, complex):
+                self.fill_value = args[2]
+                self.list2d = [[self.fill_value for _ in range(self.cols)] for _ in range(self.rows)]
+            else:
+                self.__raise_error_type()
+        if len(args) == 1:
+            if self.__validate_matrix(args[0]):
+                self.list2d = args[0]
+
+    def __getitem__(self, index):
+        if type(index[0]) == int and index[0] < len(self.list2d):
+            if type(index[1]) == int and index[1] < len(self.list2d[index[0]]):
+                return self.list2d[index[0]][index[1]]
+
+    def __setitem__(self, index, value):
+        
+
 
 # -----TEST-TASK-----
 list2D = [[1, 2], [3, 4], [5, 6]]
-st = Matrix(list2D)
-print(st.__dict__)
+st1 = Matrix(list2D)
+print(st1.list2d)
+print()
+st2 = Matrix(4, 5, 6)
+print(st2[2, 2])
 # try:
 #    st = Matrix(list2D)
 # except TypeError:
