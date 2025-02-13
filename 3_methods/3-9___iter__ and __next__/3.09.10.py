@@ -43,7 +43,18 @@ class Matrix:
                 return self.list2d[index[0]][index[1]]
 
     def __setitem__(self, index, value):
-        
+        pass
+
+    def __add__(self, other):
+        slf_data = self.list2d if isinstance(self, Matrix) else self
+        oth_data = other.list2d if isinstance(other, Matrix) else other
+        res, temp = [], []
+        for row in range(len(slf_data)):
+            for col in range(len(slf_data[row])):
+                if type(oth_data) == int:
+                    temp.append(slf_data[row][col] + oth_data)
+                else:
+                    temp.append(slf_data[row][col] + oth_data[row][col])
 
 
 # -----TEST-TASK-----
