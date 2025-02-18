@@ -22,5 +22,3 @@ class RoundTable(Table):
 
 rt = RoundTable('PC', 'brown', 500, 750)
 tb = Table('Home', 'white')
-
-print('a9' > 'a11')
