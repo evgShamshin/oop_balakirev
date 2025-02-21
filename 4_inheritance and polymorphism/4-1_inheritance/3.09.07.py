@@ -22,6 +22,7 @@ lst = [['x00', 'x01', 'x02'],
        ['x30', 'x31', 'x32']]
 
 ic = IterColumn(lst, 2)
+
 [print(i) for i in ic]
 print(next(ic))
 print(next(ic))
