@@ -33,7 +33,7 @@ class Lector(Mentor):
         student.add_lect_marks(mark)
 
     def __str__(self):
-        return f"Лектор {self._fio}: предмет: {self._subject}"
+        return f"Лектор {self._fio}: предмет {self._subject}"
 
 
 class Reviewer(Mentor):
@@ -44,9 +44,10 @@ class Reviewer(Mentor):
         student.add_house_marks(mark)
 
     def __str__(self):
-        return f"Эксперт {self._fio}: предмет: {self._subject}"
+        return f"Эксперт {self._fio}: предмет {self._subject}"
 
 
+# -----test-task-----
 lector = Lector("Балакирев С.М.", "Информатика")
 reviewer = Reviewer("Гейтс Б.", "Информатика")
 students = [Student("Иванов А.Б.", "ЭВМд-11"), Student("Гаврилов С.А.", "ЭВМд-11")]
