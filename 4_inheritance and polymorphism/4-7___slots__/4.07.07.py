@@ -19,8 +19,14 @@ class Note:
         self.__validate_ton(ton)
         self._ton = ton
 
-#    def __setattr__(self, key, value):
+    def __setattr__(self, key, value):
+        if key == '_name':
+            self.__validate_name(value)
+            object.__setattr__(self, key, value)
 
+        if key == '_ton':
+            self.__validate_ton(value)
+            object.__setattr__(self, key, value)
 
 
 class Notes:
@@ -43,10 +49,6 @@ class Notes:
 
     def __getitem__(self, item):
         if item < len(self.__slots__):
-            getattr(self, self.__slots__[item])
+            return getattr(self, self.__slots__[item])
         else:
             raise IndexError('недопустимый индекс')
-
-
-notes = Notes()
-nota = notes[1]  # ссылка на ноту ми
