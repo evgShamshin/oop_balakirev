@@ -37,8 +37,8 @@ class IntegerValidator(NoTypeValidator):
 
 def is_valid(lst, validators):
     res = []
-    for validator in validators:
-        for l in lst:
+    for l in lst:
+        for validator in validators:
             try:
                 res.append(validator(l))
             except ValueError:
